@@ -18,25 +18,26 @@ function fetchUser() {
 }
 
 export function UserProfile() {
-  const [shouldNotRenderUserName, setShouldNotRenderUserName] = useState(false)
+  // const [shouldNotRenderUserName, setShouldNotRenderUserName] = useState(false)
+  const [userIsLoading, setUserIsLoading] = useState(false);
   const [userData, setUserData] = useState<User>()
 
   useEffect(() => {
     function loadUser() {
-      setShouldNotRenderUserName(true)
+      setUserIsLoading(true)
 
       const fetchUserResponse = fetchUser()
 
       setUserData(fetchUserResponse.data.user)
       
-      setShouldNotRenderUserName(false)
+      setUserIsLoading(false)
     }
 
     loadUser()
   })
 
-  if (shouldNotRenderUserName) {
-    return <p>Loading...</p>
+  if (userIsLoading) {
+    return <p>Loading...</p>;
   }
 
   return (
@@ -46,5 +47,3 @@ export function UserProfile() {
     </div>
   )
 }
-
-
